@@ -1,5 +1,47 @@
+import { useState } from 'react';
 import Card from './component/Card';
 import Navigation from './component/Navigation';
+
+function CartShop() {
+    return (
+        <div className='cart'>
+            <div className='cart__buy'>
+                <div>
+                    <h1>Кошик</h1>
+                    <div>
+                        <div>
+                            <img src='src/img/sneaker_1.svg' alt='sneaker' />
+                        </div>
+
+                        <div>
+                            <h1>Мужские Кроссовки Nike Air Max 270</h1>
+                            <b>1299 грн</b>
+                        </div>
+                        <img src='src/img/delete-icon.svg' alt='delete-icon' />
+                    </div>
+                </div>
+            </div>
+            <div className='cart__buy'>
+                <div>
+                    <div>
+                        <div>
+                            <img src='src/img/sneaker_1.svg' alt='sneaker' />
+                        </div>
+
+                        <div>
+                            <h1>Мужские Кроссовки Nike Air Max 270</h1>
+                            <b>1299 грн</b>
+                        </div>
+                        <img src='src/img/delete-icon.svg' alt='delete-icon' />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h1></h1>
+            </div>
+        </div>
+    );
+}
 
 const arr = [
     { imgUrl: 'src/img/sneaker_1.svg', name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 1299 },
@@ -19,14 +61,22 @@ function MainShop() {
 }
 
 function App() {
+    const [visible, setVisible] = useState(false);
     return (
         <div className='content'>
             <Navigation />
             <hr />
             <MainShop />
+            {visible ? <CartShop /> : null}
             <section>
                 {arr.map((obj, index) => (
-                    <Card key={index} imgUrl={obj.imgUrl} name={obj.name} price={obj.price} />
+                    <Card
+                        key={index}
+                        imgUrl={obj.imgUrl}
+                        name={obj.name}
+                        price={obj.price}
+                        onClickCart={() => setVisible(!visible)}
+                    />
                 ))}
             </section>
         </div>

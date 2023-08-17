@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 function Card(props) {
-    const [change, setChange] = useState(true);
+    const [changeHeart, setChangeHeart] = useState(true);
+    const [changePlus, setChangePlus] = useState(true);
 
     return (
         <div>
             <img
-                src={change ? 'src/img/heart-shop_2.svg' : 'src/img/heart-shop_3.svg'}
-                onClick={() => setChange(!change)}
+                src={changeHeart ? 'src/img/heart-shop_2.svg' : 'src/img/heart-shop_3.svg'}
+                onClick={() => setChangeHeart(!changeHeart)}
                 alt='heart'
             />
             <div>
@@ -21,7 +22,13 @@ function Card(props) {
                         <h1>Ціна:</h1>
                         <b>{props.price} грн</b>
                     </div>
-                    <img src='src/img/plus.svg' alt='plus' />
+                    <div onClick={() => setChangePlus(!changePlus)}>
+                        <img
+                            src={changePlus ? 'src/img/plus.svg' : 'src/img/tick.svg'}
+                            alt='plus'
+                            onClick={props.onClickCart}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,6 +39,7 @@ Card.propTypes = {
     imgUrl: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    onClickCart: PropTypes.bool.isRequired,
 };
 
 export default Card;
