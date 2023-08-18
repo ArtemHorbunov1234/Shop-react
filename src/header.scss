@@ -128,6 +128,10 @@ section {
     width: 27%;
     top: 0%;
     width: 431px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     > .cart__buy {
         > div {
             display: flex;
@@ -160,6 +164,40 @@ section {
                         width: 150px;
                     }
                 }
+            }
+        }
+    }
+    .cart__pay {
+        h1 {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        b {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1rem 32px 0.5rem 32px;
+        }
+        > button {
+            cursor: pointer;
+            margin-top: 1rem;
+            padding: 18px 60px 18px 60px;
+            background-color: #9dd458;
+            border: none;
+            border-radius: 18px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            margin-inline: auto;
+            font-size: 1rem;
+            font-weight: 700;
+            > img {
+                padding-left: 35px;
             }
         }
     }

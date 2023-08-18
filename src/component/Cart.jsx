@@ -22,8 +22,18 @@ function CartShop({ items = [] }) {
                 </div>
             </div>
 
-            <div>
-                <h1></h1>
+            <div className='cart__pay'>
+                <div>
+                    <h1>Разом:</h1>
+                    <b>3 600грн</b>
+                </div>
+                <div>
+                    <h1>Налог 5%:</h1>
+                    <b>50грн</b>
+                </div>
+                <button>
+                    Оформити замовлення <img src='src/img/pointer_button.svg' alt='pointer' />
+                </button>
             </div>
         </div>
     );
