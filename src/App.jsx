@@ -1,55 +1,8 @@
 import { useState } from 'react';
 import Card from './component/Card';
 import Navigation from './component/Navigation';
-
-function CartShop() {
-    return (
-        <div className='cart'>
-            <div className='cart__buy'>
-                <div>
-                    <h1>Кошик</h1>
-                    <div>
-                        <div>
-                            <img src='src/img/sneaker_1.svg' alt='sneaker' />
-                        </div>
-
-                        <div>
-                            <h1>Мужские Кроссовки Nike Air Max 270</h1>
-                            <b>1299 грн</b>
-                        </div>
-                        <img src='src/img/delete-icon.svg' alt='delete-icon' />
-                    </div>
-                </div>
-            </div>
-            <div className='cart__buy'>
-                <div>
-                    <div>
-                        <div>
-                            <img src='src/img/sneaker_1.svg' alt='sneaker' />
-                        </div>
-
-                        <div>
-                            <h1>Мужские Кроссовки Nike Air Max 270</h1>
-                            <b>1299 грн</b>
-                        </div>
-                        <img src='src/img/delete-icon.svg' alt='delete-icon' />
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h1></h1>
-            </div>
-        </div>
-    );
-}
-
-const arr = [
-    { imgUrl: 'src/img/sneaker_1.svg', name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 1299 },
-    { imgUrl: 'src/img/sneaker_2.svg', name: 'Мужские Кроссовки Nike Air Max 270', price: 1435 },
-    { imgUrl: 'src/img/sneaker_3.svg', name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 1299 },
-    { imgUrl: 'src/img/sneaker_4.svg', name: 'Кроссовки Puma X Aka Boku Future Rider', price: 1299 },
-    { imgUrl: 'src/img/sneaker_5.svg', name: 'Мужские Кроссовки Under Armour Curry 8', price: 2999 },
-];
+import { useEffect } from 'react';
+import Cart from './component/Cart';
 
 function MainShop() {
     return (
@@ -62,20 +15,35 @@ function MainShop() {
 
 function App() {
     const [visible, setVisible] = useState(false);
+    const [items, setItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        fetch('https://64de62bb825d19d9bfb28c9d.mockapi.io/Items')
+            .then((res) => {
+                return res.json();
+            })
+            .then((json) => {
+                setItems(json);
+            });
+    }, []);
+    const onAddToCart = (obj) => {
+        setCartItems([...cartItems, obj]);
+    };
     return (
         <div className='content'>
-            <Navigation />
+            <Navigation onCart={() => setVisible(!visible)} />
             <hr />
             <MainShop />
-            {visible ? <CartShop /> : null}
+            {visible ? <Cart items={cartItems} /> : null}
             <section>
-                {arr.map((obj, index) => (
+                {items.map((item, index) => (
                     <Card
                         key={index}
-                        imgUrl={obj.imgUrl}
-                        name={obj.name}
-                        price={obj.price}
-                        onClickCart={() => setVisible(!visible)}
+                        imgUrl={item.imgUrl}
+                        name={item.name}
+                        price={item.price}
+                        onBuyCart={(obj) => onAddToCart(obj)}
                     />
                 ))}
             </section>

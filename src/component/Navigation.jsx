@@ -1,4 +1,6 @@
-function Navigation() {
+import PropTypes from 'prop-types';
+
+function Navigation(props) {
     return (
         <nav className='navigation'>
             <ul>
@@ -13,7 +15,7 @@ function Navigation() {
                 </li>
                 <li className='headerRight'>
                     <li>
-                        <img src='src/img/cart-shop.svg' alt='' />
+                        <img src='src/img/cart-shop.svg' onClick={props.onCart} alt='' />
                         <ul>
                             <li></li>
                         </ul>
@@ -28,5 +30,9 @@ function Navigation() {
         </nav>
     );
 }
+
+Navigation.propTypes = {
+    onCart: PropTypes.string.isRequired,
+};
 
 export default Navigation;
