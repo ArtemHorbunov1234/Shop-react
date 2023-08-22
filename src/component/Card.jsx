@@ -26,11 +26,11 @@ function Card({ imgUrl, name, price, onBuyCart }) {
                         <h1>Ціна:</h1>
                         <b>{price} грн</b>
                     </div>
-                    <div onClick={onClickPlus}>
+                    <div>
                         <img
                             src={changePlus ? 'src/img/plus.svg' : 'src/img/tick.svg'}
                             alt='plus'
-                            onClick={onBuyCart}
+                            onClick={onClickPlus}
                         />
                     </div>
                 </div>
@@ -43,7 +43,6 @@ Card.propTypes = {
     imgUrl: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    onClickCart: PropTypes.func.isRequired, // ожидаем функцию-обработчик
     onBuyCart: PropTypes.func.isRequired, // ожидаем функцию-обработчик
 };
 export default Card;

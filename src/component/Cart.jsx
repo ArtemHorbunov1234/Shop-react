@@ -1,13 +1,30 @@
 import PropTypes from 'prop-types';
 
-function CartShop({ items = [] }) {
+function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
     return (
         <div className='cart'>
             <div className='cart__buy'>
                 <div>
                     <h1>Кошик</h1>
+                    <div className={onCartEmpty ? 'Cart__empty' : 'Cart__empty--none'}>
+                        <div>
+                            <img src='src/img/cart.svg' alt='cart' />
+                        </div>
+                        <div>
+                            <h1>Кошик порожній</h1>
+                        </div>
+                        <div>
+                            <p>Додайте хоча б одну пару кросівок, щоб зробити замовлення.</p>
+                        </div>
+                        <div>
+                            <button onClick={onCartHidden}>
+                                <img src='src/img/cursor_left-button.svg' alt='' />
+                                Повернутися назад
+                            </button>
+                        </div>
+                    </div>
                     {items.map((obj, index) => (
-                        <div key={index}>
+                        <div className='cart__buy--item' key={index}>
                             <div>
                                 <img src={obj.imgUrl} alt='sneaker' />
                             </div>
@@ -16,13 +33,13 @@ function CartShop({ items = [] }) {
                                 <h1>{obj.name}</h1>
                                 <b>{obj.price} грн</b>
                             </div>
-                            <img src='src/img/delete-icon.svg' alt='delete-icon' />
+                            <img onClick={() => onRemove(obj.id)} src='src/img/delete-icon.svg' alt='delete-icon' />
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className='cart__pay'>
+            <div className={onCartEmpty ? 'Cart__empty--none' : 'cart__pay'}>
                 <div>
                     <h1>Разом:</h1>
                     <b>3 600грн</b>
@@ -39,8 +56,11 @@ function CartShop({ items = [] }) {
     );
 }
 
-export default CartShop;
+export default Cart;
 
-CartShop.propTypes = {
+Cart.propTypes = {
     items: PropTypes.array.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onCartEmpty: PropTypes.bool.isRequired,
+    onCartHidden: PropTypes.bool.isRequired,
 };
