@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function Navigation({ onFavorite, onCart }) {
+function Navigation({ onHeard, onFavorite, onCart }) {
     return (
         <nav className='navigation'>
             <ul className='headerLeft'>
@@ -23,7 +23,13 @@ function Navigation({ onFavorite, onCart }) {
                     </div>
                 </li>
                 <li>
-                    <img src='src/img/heart-shop.svg' onClick={onFavorite} alt='heart' />
+                    <img
+                        src={onHeard.length > 0 ? 'src/img/favorite_navigation_1.svg' : 'src/img/heart-shop.svg'}
+                        width={25}
+                        height={25}
+                        onClick={onFavorite}
+                        alt='heart'
+                    />
                     <img src='src/img/account-shop.svg' alt='account' />
                 </li>
             </ul>
@@ -33,7 +39,8 @@ function Navigation({ onFavorite, onCart }) {
 
 Navigation.propTypes = {
     onCart: PropTypes.func.isRequired,
-    onFavorite: PropTypes.bool.isRequired,
+    onFavorite: PropTypes.func.isRequired,
+    onHeard: PropTypes.func.isRequired,
 };
 
 export default Navigation;

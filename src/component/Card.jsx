@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-function Card({ imgUrl, name, price, onBuyCart }) {
+function Card({ imgUrl, name, price, onBuyCart, onFavorite }) {
     const [changeHeart, setChangeHeart] = useState(true);
     const [changePlus, setChangePlus] = useState(true);
     const onClickPlus = () => {
@@ -9,13 +9,22 @@ function Card({ imgUrl, name, price, onBuyCart }) {
         onBuyCart({ imgUrl, name, price });
     };
 
+    const onClickFavorite = () => {
+        onFavorite({ imgUrl, name, price });
+        setChangeHeart(!changeHeart);
+    };
+
     return (
         <div>
-            <img
-                src={changeHeart ? 'src/img/heart-shop_2.svg' : 'src/img/heart-shop_3.svg'}
-                onClick={() => setChangeHeart(!changeHeart)}
-                alt='heart'
-            />
+            <div>
+                <img
+                    className='card__favorite--img'
+                    src={changeHeart ? 'src/img/heart-shop_2.svg' : 'src/img/heart-shop_3.svg'}
+                    onClick={onClickFavorite}
+                    alt='heart'
+                />
+            </div>
+
             <div>
                 <img src={imgUrl} alt='sneaker' />
                 <div>
@@ -44,5 +53,6 @@ Card.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     onBuyCart: PropTypes.func.isRequired, // ожидаем функцию-обработчик
+    onFavorite: PropTypes.func.isRequired,
 };
 export default Card;

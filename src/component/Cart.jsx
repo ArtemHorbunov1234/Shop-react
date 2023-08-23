@@ -33,7 +33,13 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
                                 <h1>{obj.name}</h1>
                                 <b>{obj.price} грн</b>
                             </div>
-                            <img onClick={() => onRemove(obj.id)} src='src/img/delete-icon.svg' alt='delete-icon' />
+                            <img
+                                onClick={() => {
+                                    onRemove(obj.id);
+                                }}
+                                src='src/img/delete-icon.svg'
+                                alt='delete-icon'
+                            />
                         </div>
                     ))}
                 </div>
@@ -62,5 +68,5 @@ Cart.propTypes = {
     items: PropTypes.array.isRequired,
     onRemove: PropTypes.func.isRequired,
     onCartEmpty: PropTypes.bool.isRequired,
-    onCartHidden: PropTypes.bool.isRequired,
+    onCartHidden: PropTypes.func.isRequired,
 };

@@ -10,6 +10,7 @@ function App() {
     const [items, setItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [searchItems, setSearchItems] = useState([]);
+    const [favorite, setFavorite] = useState([]);
     const [cartItemHidden, setCartItemHidden] = useState(false);
 
     const onChangeSearchInput = (event) => {
@@ -23,21 +24,40 @@ function App() {
         axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart').then((res) => {
             setCartItems(res.data);
         });
+        axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Favorite').then((res) => {
+            setFavorite(res.data);
+        });
     }, []);
 
     const onRemoveItem = (id) => {
         axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/${id}`);
-        setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(id)));
+        setCartItems((prev) => prev.filter((item) => item.id !== id));
     };
 
     const onAddToCart = (obj) => {
-        axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', obj);
-        setCartItems((prev) => [...prev, obj]);
+        axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', obj).then((res) => {
+            setCartItems((prev) => [...prev, res.data]);
+        });
+    };
+
+    const onAddToFavorite = (obj) => {
+        axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Favorite', obj).then((res) => {
+            setFavorite((prev) => [...prev, res.data]);
+        });
+    };
+
+    const onRemoveFavorite = (id) => {
+        axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Favorite/${id}`);
+        setFavorite((prev) => prev.filter((item) => item.id !== id));
     };
 
     return (
         <div className='content'>
-            <Navigation onFavorite={() => setCartItemHidden(!cartItemHidden)} onCart={() => setVisible(!visible)} />
+            <Navigation
+                onHeard={favorite}
+                onFavorite={() => setCartItemHidden(!cartItemHidden)}
+                onCart={() => setVisible(!visible)}
+            />
             <hr />
             {visible ? (
                 <Cart
@@ -49,26 +69,49 @@ function App() {
             ) : null}
             {cartItemHidden ? (
                 <div>
-                    <div className='favorite'>
-                        <img src='src/img/exit_favorite.svg' alt='exit' />
-                        <h1>Мої закладки</h1>
-                    </div>
-                    <div className='favorite__item'>
-                        {items.map((obj, index) => (
-                            <div className='favorite--item' key={index}>
-                                <img className='favorite--item__img' src='src/img/heart-shop_3.svg' alt='' />
-                                <div>
-                                    <img src={obj.imgUrl} alt='sneaker' />
-                                </div>
-                                <h1>{obj.name}</h1>
-
-                                <div>
-                                    <b>{obj.price} грн</b>
-                                    <img src='src/img/delete-icon.svg' alt='delete-icon' />
-                                </div>
+                    {favorite.length > 0 ? (
+                        <div>
+                            <div className='favorite'>
+                                <img
+                                    onClick={() => setCartItemHidden(!cartItemHidden)}
+                                    src='src/img/exit_favorite.svg'
+                                    alt='exit'
+                                />
+                                <h1>Мої закладки</h1>
                             </div>
-                        ))}
-                    </div>
+                            <div className='favorite__item'>
+                                {favorite.map((obj, index) => (
+                                    <div className='favorite--item' key={index}>
+                                        <img
+                                            className='favorite--item__img'
+                                            onClick={() => onRemoveFavorite(obj.id)}
+                                            src='src/img/heart-shop_3.svg'
+                                            alt=''
+                                        />
+                                        <div>
+                                            <img src={obj.imgUrl} alt='sneaker' />
+                                        </div>
+                                        <h1>{obj.name}</h1>
+
+                                        <div>
+                                            <b>Цена:</b>
+                                            <h3>{obj.price} грн</h3>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='favorite--item__dont'>
+                            <img src='src/img/smile_favorite.svg' alt='smile' />
+                            <h1>Закладок немає :(</h1>
+                            <p>Ви нічого не додавали в закладки</p>
+                            <button onClick={() => setCartItemHidden(!cartItemHidden)}>
+                                <img src='src/img/cursor_left-button.svg' alt='' />
+                                Повернутися назад
+                            </button>
+                        </div>
+                    )}
                 </div>
             ) : (
                 <div>
@@ -87,6 +130,7 @@ function App() {
                                     name={item.name}
                                     price={item.price}
                                     onBuyCart={(obj) => onAddToCart(obj)}
+                                    onFavorite={(obj) => onAddToFavorite(obj)}
                                 />
                             ))}
                     </section>
