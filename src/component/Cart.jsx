@@ -5,7 +5,11 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
         <div className='cart'>
             <div className='cart__buy'>
                 <div>
-                    <h1>Кошик</h1>
+                    <div className='cart__header'>
+                        <h1>Кошик</h1>
+                        <img onClick={onCartHidden} src='src/img/cart _x--letter.svg' alt='' />
+                    </div>
+
                     <div className={onCartEmpty ? 'Cart__empty' : 'Cart__empty--none'}>
                         <div>
                             <img src='src/img/cart.svg' alt='cart' />
@@ -23,8 +27,8 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
                             </button>
                         </div>
                     </div>
-                    {items.map((obj, index) => (
-                        <div className='cart__buy--item' key={index}>
+                    {items.map((obj) => (
+                        <div className='cart__buy--item' key={obj.id}>
                             <div>
                                 <img src={obj.imgUrl} alt='sneaker' />
                             </div>

@@ -55,10 +55,23 @@ main {
     display: flex;
     justify-content: space-between;
     margin: 40px 23px 30px 23px;
-    > input {
+    > div {
         border-radius: 10px;
-        &::placeholder {
-            text-align: center;
+        border: 1px solid gray;
+        padding: 5px 5px 5px 8px;
+        display: flex;
+        > img {
+            cursor: pointer;
+        }
+        > input {
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+
+            &::placeholder {
+                text-align: center;
+            }
         }
     }
 }
@@ -136,9 +149,19 @@ section {
             margin-top: 30px;
 
             gap: 30px;
-            > h1 {
-                margin: -6px 0 0 32px;
+            > .cart__header {
+                display: flex;
+                justify-content: space-between;
+                > h1 {
+                    margin: -6px 0 0 32px;
+                }
+                > img {
+                    width: fit-content;
+                    margin-right: 32px;
+                    cursor: pointer;
+                }
             }
+
             > .cart__buy--item {
                 display: flex;
                 margin-left: 32px;

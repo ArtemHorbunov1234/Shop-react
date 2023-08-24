@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-function Card({ imgUrl, name, price, onBuyCart, onFavorite }) {
+function Card({ id, imgUrl, name, price, onBuyCart, onFavorite }) {
     const [changeHeart, setChangeHeart] = useState(true);
     const [changePlus, setChangePlus] = useState(true);
     const onClickPlus = () => {
         setChangePlus(!changePlus);
-        onBuyCart({ imgUrl, name, price });
+        onBuyCart({ id, imgUrl, name, price });
     };
 
     const onClickFavorite = () => {
@@ -54,5 +54,6 @@ Card.propTypes = {
     price: PropTypes.number.isRequired,
     onBuyCart: PropTypes.func.isRequired, // ожидаем функцию-обработчик
     onFavorite: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
 };
 export default Card;

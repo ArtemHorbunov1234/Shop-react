@@ -35,9 +35,15 @@ function App() {
     };
 
     const onAddToCart = (obj) => {
-        axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', obj).then((res) => {
-            setCartItems((prev) => [...prev, res.data]);
-        });
+        console.log(`${obj.id}`);
+        if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+            axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/${obj.id}`);
+            setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+        } else {
+            axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', obj).then((res) => {
+                setCartItems((prev) => [...prev, res.data]);
+            });
+        }
     };
 
     const onAddToFavorite = (obj) => {
@@ -54,6 +60,7 @@ function App() {
     return (
         <div className='content'>
             <Navigation
+                cartChange={cartItems}
                 onHeard={favorite}
                 onFavorite={() => setCartItemHidden(!cartItemHidden)}
                 onCart={() => setVisible(!visible)}
@@ -116,8 +123,13 @@ function App() {
             ) : (
                 <div>
                     <main>
-                        <h1> {searchItems ? `Пошук за запитом: ${searchItems}` : 'Усі кросівки'}</h1>
-                        <input onChange={onChangeSearchInput} value={searchItems} type='text' placeholder='ПОИСК' />
+                        <h1> {searchItems.length > 0 ? `Пошук за запитом: ${searchItems}` : 'Усі кросівки'}</h1>
+                        <div>
+                            <input onChange={onChangeSearchInput} value={searchItems} type='text' placeholder='ПОИСК' />
+                            {searchItems.length > 0 ? (
+                                <img src='src/img/input_x--letter.svg' onClick={() => setSearchItems('')} alt='' />
+                            ) : null}
+                        </div>
                     </main>
 
                     <section>
@@ -126,6 +138,7 @@ function App() {
                             .map((item, index) => (
                                 <Card
                                     key={index}
+                                    id={index}
                                     imgUrl={item.imgUrl}
                                     name={item.name}
                                     price={item.price}
