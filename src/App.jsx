@@ -33,14 +33,22 @@ function App() {
         axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/${id}`);
         setCartItems((prev) => prev.filter((item) => item.id !== id));
     };
-
     const onAddToCart = (obj) => {
         console.log(`${obj.id}`);
-        if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
-            axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/${obj.id}`);
-            setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+        const existingItem = cartItems.find((item) => Number(item.itemId) === Number(obj.id));
+        if (existingItem !== undefined) {
+            console.log('delete');
+            axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/${existingItem.id}`);
+            setCartItems((prev) => prev.filter((item) => Number(item.itemId) !== Number(obj.id)));
         } else {
-            axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', obj).then((res) => {
+            console.log('add');
+            const cartObj = {
+                imgUrl: obj.imgUrl,
+                price: obj.price,
+                name: obj.name,
+                itemId: obj.id,
+            };
+            axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', cartObj).then((res) => {
                 setCartItems((prev) => [...prev, res.data]);
             });
         }
@@ -135,10 +143,10 @@ function App() {
                     <section>
                         {items
                             .filter((item) => item.name.toLowerCase().includes(String(searchItems).toLowerCase()))
-                            .map((item, index) => (
+                            .map((item) => (
                                 <Card
-                                    key={index}
-                                    id={index}
+                                    key={item.id}
+                                    id={Number(item.id)}
                                     imgUrl={item.imgUrl}
                                     name={item.name}
                                     price={item.price}
