@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
-function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
+function Cart({ onCartHidden, onCartEmpty, onRemove, items = [], priceCart }) {
+    let priceTax = (priceCart / 100) * 5;
     return (
         <div className='cart'>
             <div className='cart__buy'>
@@ -27,8 +28,8 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
                             </button>
                         </div>
                     </div>
-                    {items.map((obj, index) => (
-                        <div className='cart__buy--item' key={index}>
+                    {items.map((obj) => (
+                        <div className='cart__buy--item' key={obj.id}>
                             <div>
                                 <img src={obj.imgUrl} alt='sneaker' />
                             </div>
@@ -39,7 +40,7 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
                             </div>
                             <img
                                 onClick={() => {
-                                    onRemove(index);
+                                    onRemove(obj.id);
                                 }}
                                 src='src/img/delete-icon.svg'
                                 alt='delete-icon'
@@ -52,11 +53,11 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [] }) {
             <div className={onCartEmpty ? 'Cart__empty--none' : 'cart__pay'}>
                 <div>
                     <h1>Разом:</h1>
-                    <b>3 600грн</b>
+                    <b>{priceCart}грн</b>
                 </div>
                 <div>
                     <h1>Налог 5%:</h1>
-                    <b>50грн</b>
+                    <b>{priceTax.toFixed(2)}грн</b>
                 </div>
                 <button>
                     Оформити замовлення <img src='src/img/pointer_button.svg' alt='pointer' />
@@ -73,4 +74,5 @@ Cart.propTypes = {
     onRemove: PropTypes.func.isRequired,
     onCartEmpty: PropTypes.bool.isRequired,
     onCartHidden: PropTypes.func.isRequired,
+    priceCart: PropTypes.number.isRequired,
 };

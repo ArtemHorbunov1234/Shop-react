@@ -72,6 +72,7 @@ function App() {
                 onHeard={favorite}
                 onFavorite={() => setCartItemHidden(!cartItemHidden)}
                 onCart={() => setVisible(!visible)}
+                priceCart={cartItems.reduce((sum, obj) => obj.price + sum, 0)}
             />
             <hr />
             {visible ? (
@@ -80,6 +81,7 @@ function App() {
                     onCartEmpty={cartItems.length > 0 ? false : true}
                     items={cartItems}
                     onRemove={onRemoveItem}
+                    priceCart={cartItems.reduce((sum, obj) => obj.price + sum, 0)}
                 />
             ) : null}
             {cartItemHidden ? (
@@ -152,6 +154,7 @@ function App() {
                                     price={item.price}
                                     onBuyCart={(obj) => onAddToCart(obj)}
                                     onFavorite={(obj) => onAddToFavorite(obj)}
+                                    added={cartItems.some((obj) => Number(obj.itemId) === Number(item.id))}
                                 />
                             ))}
                     </section>

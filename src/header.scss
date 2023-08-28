@@ -22,7 +22,7 @@ ul {
 .navigation {
     margin: 50px 23px 40px 23px;
     display: flex;
-    gap: 663px;
+    gap: 636px;
     padding-top: 1rem;
 }
 
@@ -38,6 +38,11 @@ ul {
         display: flex;
         gap: 15px;
         align-items: center;
+        > div {
+            > h1 {
+                width: 80px;
+            }
+        }
 
         > img {
             cursor: pointer;

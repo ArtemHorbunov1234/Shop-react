@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-function Card({ id, imgUrl, name, price, onBuyCart, onFavorite }) {
+function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true }) {
     const [changeHeart, setChangeHeart] = useState(true);
-    const [changePlus, setChangePlus] = useState(true);
+    const [changePlus, setChangePlus] = useState(added);
     const onClickPlus = () => {
         setChangePlus(!changePlus);
         onBuyCart({ id, imgUrl, name, price });
@@ -36,11 +36,7 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite }) {
                         <b>{price} грн</b>
                     </div>
                     <div>
-                        <img
-                            src={changePlus ? 'src/img/plus.svg' : 'src/img/tick.svg'}
-                            alt='plus'
-                            onClick={onClickPlus}
-                        />
+                        <img src={added ? 'src/img/tick.svg' : 'src/img/plus.svg'} alt='plus' onClick={onClickPlus} />
                     </div>
                 </div>
             </div>
@@ -55,5 +51,6 @@ Card.propTypes = {
     onBuyCart: PropTypes.func.isRequired, // ожидаем функцию-обработчик
     onFavorite: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
+    added: PropTypes.bool.isRequired,
 };
 export default Card;
