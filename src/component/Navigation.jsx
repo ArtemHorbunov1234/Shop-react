@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
+
 function Navigation({ cartChange, onHeard, onFavorite, onCart, priceCart }) {
     return (
         <nav className='navigation'>
@@ -24,13 +26,16 @@ function Navigation({ cartChange, onHeard, onFavorite, onCart, priceCart }) {
                     </div>
                 </li>
                 <li>
-                    <img
-                        src={onHeard.length > 0 ? 'src/img/favorite_navigation_1.svg' : 'src/img/heart-shop.svg'}
-                        width={25}
-                        height={25}
-                        onClick={onFavorite}
-                        alt='heart'
-                    />
+                    <Link to='/favorite'>
+                        <img
+                            src={onHeard.length > 0 ? 'src/img/favorite_navigation_1.svg' : 'src/img/heart-shop.svg'}
+                            width={25}
+                            height={25}
+                            onClick={onFavorite}
+                            alt='heart'
+                        />
+                    </Link>
+
                     <img src='src/img/account-shop.svg' alt='account' />
                 </li>
             </ul>

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Card from './component/Card';
 import Navigation from './component/Navigation';
 import { useEffect } from 'react';
 import Cart from './component/Cart';
 import axios from 'axios';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
     const [visible, setVisible] = useState(false);
@@ -75,91 +75,72 @@ function App() {
                 priceCart={cartItems.reduce((sum, obj) => obj.price + sum, 0)}
             />
             <hr />
-            {visible ? (
-                <Cart
-                    onCartHidden={() => setVisible(!visible)}
-                    onCartEmpty={cartItems.length > 0 ? false : true}
-                    items={cartItems}
-                    onRemove={onRemoveItem}
-                    priceCart={cartItems.reduce((sum, obj) => obj.price + sum, 0)}
-                />
-            ) : null}
-            {cartItemHidden ? (
+            <Cart
+                onCartHidden={() => setVisible(!visible)}
+                onCartEmpty={cartItems.length > 0 ? false : true}
+                items={cartItems}
+                onRemove={onRemoveItem}
+                priceCart={cartItems.reduce((sum, obj) => obj.price + sum, 0)}
+            />
+            {favorite.length > 0 ? (
                 <div>
-                    {favorite.length > 0 ? (
-                        <div>
-                            <div className='favorite'>
+                    <div className='favorite'>
+                        <img
+                            onClick={() => setCartItemHidden(!cartItemHidden)}
+                            src='src/img/exit_favorite.svg'
+                            alt='exit'
+                        />
+                        <h1>Мої закладки</h1>
+                    </div>
+                    <div className='favorite__item'>
+                        {favorite.map((obj, index) => (
+                            <div className='favorite--item' key={index}>
                                 <img
-                                    onClick={() => setCartItemHidden(!cartItemHidden)}
-                                    src='src/img/exit_favorite.svg'
-                                    alt='exit'
+                                    className='favorite--item__img'
+                                    onClick={() => onRemoveFavorite(obj.id)}
+                                    src='src/img/heart-shop_3.svg'
+                                    alt=''
                                 />
-                                <h1>Мої закладки</h1>
-                            </div>
-                            <div className='favorite__item'>
-                                {favorite.map((obj, index) => (
-                                    <div className='favorite--item' key={index}>
-                                        <img
-                                            className='favorite--item__img'
-                                            onClick={() => onRemoveFavorite(obj.id)}
-                                            src='src/img/heart-shop_3.svg'
-                                            alt=''
-                                        />
-                                        <div>
-                                            <img src={obj.imgUrl} alt='sneaker' />
-                                        </div>
-                                        <h1>{obj.name}</h1>
+                                <div>
+                                    <img src={obj.imgUrl} alt='sneaker' />
+                                </div>
+                                <h1>{obj.name}</h1>
 
-                                        <div>
-                                            <b>Цена:</b>
-                                            <h3>{obj.price} грн</h3>
-                                        </div>
-                                    </div>
-                                ))}
+                                <div>
+                                    <b>Цена:</b>
+                                    <h3>{obj.price} грн</h3>
+                                </div>
                             </div>
-                        </div>
-                    ) : (
-                        <div className='favorite--item__dont'>
-                            <img src='src/img/smile_favorite.svg' alt='smile' />
-                            <h1>Закладок немає :(</h1>
-                            <p>Ви нічого не додавали в закладки</p>
-                            <button onClick={() => setCartItemHidden(!cartItemHidden)}>
-                                <img src='src/img/cursor_left-button.svg' alt='' />
-                                Повернутися назад
-                            </button>
-                        </div>
-                    )}
+                        ))}
+                    </div>
                 </div>
             ) : (
-                <div>
-                    <main>
-                        <h1> {searchItems.length > 0 ? `Пошук за запитом: ${searchItems}` : 'Усі кросівки'}</h1>
-                        <div>
-                            <input onChange={onChangeSearchInput} value={searchItems} type='text' placeholder='ПОИСК' />
-                            {searchItems.length > 0 ? (
-                                <img src='src/img/input_x--letter.svg' onClick={() => setSearchItems('')} alt='' />
-                            ) : null}
-                        </div>
-                    </main>
-
-                    <section>
-                        {items
-                            .filter((item) => item.name.toLowerCase().includes(String(searchItems).toLowerCase()))
-                            .map((item) => (
-                                <Card
-                                    key={item.id}
-                                    id={Number(item.id)}
-                                    imgUrl={item.imgUrl}
-                                    name={item.name}
-                                    price={item.price}
-                                    onBuyCart={(obj) => onAddToCart(obj)}
-                                    onFavorite={(obj) => onAddToFavorite(obj)}
-                                    added={cartItems.some((obj) => Number(obj.itemId) === Number(item.id))}
-                                />
-                            ))}
-                    </section>
+                <div className='favorite--item__dont'>
+                    <img src='src/img/smile_favorite.svg' alt='smile' />
+                    <h1>Закладок немає :(</h1>
+                    <p>Ви нічого не додавали в закладки</p>
+                    <button onClick={() => setCartItemHidden(!cartItemHidden)}>
+                        <img src='src/img/cursor_left-button.svg' alt='' />
+                        Повернутися назад
+                    </button>
                 </div>
             )}
+            <Routes>
+                <Route
+                    path='/'
+                    element={
+                        <Home
+                            items={items}
+                            searchItems={setSearchItems}
+                            setCartItems={setCartItems}
+                            onChangeSearchInput={onChangeSearchInput}
+                            onAddToFavorite={onAddToFavorite}
+                            onAddToCart={onAddToCart}
+                            cartItems={cartItems}
+                        />
+                    }
+                />
+            </Routes>
         </div>
     );
 }
