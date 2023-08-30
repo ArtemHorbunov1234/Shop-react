@@ -1,6 +1,16 @@
-import Card from './component/Card';
+import Card from '../component/Card';
+import PropTypes from 'prop-types';
 
-function Home({ items, searchItems, onChangeSearchInput, onAddToFavorite, onAddToCart, cartItems, setSearchItems }) {
+function Home({
+    items,
+    searchItems,
+    onChangeSearchInput,
+    onAddToFavorite,
+    onAddToCart,
+    cartItems,
+    setSearchItems,
+    favorite,
+}) {
     return (
         <div>
             <main>
@@ -25,6 +35,7 @@ function Home({ items, searchItems, onChangeSearchInput, onAddToFavorite, onAddT
                             onBuyCart={(obj) => onAddToCart(obj)}
                             onFavorite={(obj) => onAddToFavorite(obj)}
                             added={cartItems.some((obj) => Number(obj.itemId) === Number(item.id))}
+                            addedLike={favorite.some((obj) => Number(obj.itemId) === Number(item.id))}
                         />
                     ))}
             </section>
@@ -34,12 +45,13 @@ function Home({ items, searchItems, onChangeSearchInput, onAddToFavorite, onAddT
 
 Home.propTypes = {
     items: PropTypes.array.isRequired,
-    searchItems: PropTypes.string.isRequired,
+    searchItems: PropTypes.array.isRequired,
     onChangeSearchInput: PropTypes.func.isRequired, // ожидаем функцию-обработчик
     onAddToFavorite: PropTypes.func.isRequired,
     onAddToCart: PropTypes.func.isRequired,
-    cartItems: PropTypes.func.isRequired,
-    setSearchItems: PropTypes.func.isRequired,
+    cartItems: PropTypes.array.isRequired,
+    setSearchItems: PropTypes.array.isRequired,
+    favorite: PropTypes.array.isRequired,
 };
 
 export default Home;

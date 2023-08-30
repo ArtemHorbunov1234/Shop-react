@@ -5,15 +5,18 @@ import { Link } from 'react-router-dom';
 function Navigation({ cartChange, onHeard, onFavorite, onCart, priceCart }) {
     return (
         <nav className='navigation'>
-            <ul className='headerLeft'>
-                <li>
-                    <img src='src/img/logo-shop.svg' alt='' />
-                </li>
-                <li>
-                    <h1 className='headerLeft__text--logo'>REACT SNEAKERS</h1>
-                    <p>Магазин найкращих кросівок</p>
-                </li>
-            </ul>
+            <Link to='/'>
+                <ul className='headerLeft'>
+                    <li>
+                        <img src='src/img/logo-shop.svg' alt='' />
+                    </li>
+                    <li>
+                        <h1 className='headerLeft__text--logo'>REACT SNEAKERS</h1>
+                        <p>Магазин найкращих кросівок</p>
+                    </li>
+                </ul>
+            </Link>
+
             <ul className='headerRight'>
                 <li>
                     <img
