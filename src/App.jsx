@@ -13,6 +13,7 @@ function App() {
     const [cartItems, setCartItems] = useState([]);
     const [searchItems, setSearchItems] = useState([]);
     const [favorite, setFavorite] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const onChangeSearchInput = (event) => {
         setSearchItems(event.target.value);
@@ -23,6 +24,7 @@ function App() {
             const cartResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart');
             const favoriteResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Favorite');
             const itemsResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Items');
+            setIsLoading(false);
             setCartItems(cartResponse.data);
             setFavorite(favoriteResponse.data);
             setItems(itemsResponse.data);
@@ -107,12 +109,14 @@ function App() {
                         <Home
                             items={items}
                             searchItems={searchItems}
+                            setSearchItems={setSearchItems}
                             setCartItems={setCartItems}
                             onChangeSearchInput={onChangeSearchInput}
                             onAddToFavorite={onAddToFavorite}
                             onAddToCart={onAddToCart}
                             cartItems={cartItems}
                             favorite={favorite}
+                            isLoading={isLoading}
                         />
                     }
                 />

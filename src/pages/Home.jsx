@@ -10,7 +10,33 @@ function Home({
     cartItems,
     setSearchItems,
     favorite,
+    isLoading,
 }) {
+    const fakeData = [...Array(12)].map((_, index) => ({
+        id: `fake_${index}`,
+        name: 'Fake Item',
+        price: 0,
+        imgUrl: 'path/to/image.png',
+    }));
+    const renderItems = () => {
+        const filtredItems = items.filter((item) =>
+            item.name.toLowerCase().includes(String(searchItems).toLowerCase())
+        );
+        return (isLoading ? fakeData : filtredItems).map((item) => (
+            <Card
+                key={item.id}
+                id={Number(item.id)}
+                imgUrl={item.imgUrl}
+                name={item.name}
+                price={item.price}
+                onBuyCart={(obj) => onAddToCart(obj)}
+                onFavorite={(obj) => onAddToFavorite(obj)}
+                added={cartItems.some((obj) => Number(obj.itemId) === Number(item.id))}
+                addedLike={favorite.some((obj) => Number(obj.itemId) === Number(item.id))}
+                loading={isLoading}
+            />
+        ));
+    };
     return (
         <div>
             <main>
@@ -22,23 +48,7 @@ function Home({
                     ) : null}
                 </div>
             </main>
-            <section>
-                {items
-                    .filter((item) => item.name.toLowerCase().includes(String(searchItems).toLowerCase()))
-                    .map((item) => (
-                        <Card
-                            key={item.id}
-                            id={Number(item.id)}
-                            imgUrl={item.imgUrl}
-                            name={item.name}
-                            price={item.price}
-                            onBuyCart={(obj) => onAddToCart(obj)}
-                            onFavorite={(obj) => onAddToFavorite(obj)}
-                            added={cartItems.some((obj) => Number(obj.itemId) === Number(item.id))}
-                            addedLike={favorite.some((obj) => Number(obj.itemId) === Number(item.id))}
-                        />
-                    ))}
-            </section>
+            <section>{renderItems()}</section>
         </div>
     );
 }
@@ -50,8 +60,9 @@ Home.propTypes = {
     onAddToFavorite: PropTypes.func.isRequired,
     onAddToCart: PropTypes.func.isRequired,
     cartItems: PropTypes.array.isRequired,
-    setSearchItems: PropTypes.array.isRequired,
+    setSearchItems: PropTypes.func.isRequired,
     favorite: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
 };
 
 export default Home;

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 
-function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, addedLike = true, loading = true }) {
+function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, addedLike = true, loading = false }) {
     const [changeHeart, setChangeHeart] = useState(addedLike);
     const [changePlus, setChangePlus] = useState(added);
     const onClickPlus = () => {
@@ -22,7 +22,7 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, ad
                     <ContentLoader
                         speed={2}
                         width={155}
-                        height={250}
+                        height={218}
                         viewBox='0 0 155 265'
                         backgroundColor='#f3f3f3'
                         foregroundColor='#ecebeb'
@@ -46,7 +46,7 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, ad
                     </div>
 
                     <div>
-                        <img src={imgUrl} alt='sneaker' />
+                        <img className='card__sneaker--img' src={imgUrl} alt='sneaker' />
                         <div>
                             <h1>{name}</h1>
                         </div>
