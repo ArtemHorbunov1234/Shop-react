@@ -27,13 +27,11 @@ function App() {
             const cartResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart');
             const favoriteResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Favorite');
             const itemsResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Items');
-            const orderResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Order');
             setIsLoading(false);
 
             setCartItems(cartResponse.data);
             setFavorite(favoriteResponse.data);
             setItems(itemsResponse.data);
-            setIsOrder(orderResponse.data);
         }
         fetchDate();
     }, []);
@@ -86,8 +84,8 @@ function App() {
     const onClickBuyCart = async () => {
         try {
             setIsLoading(true);
-            const { data } = await axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Order', {
-                cartItems,
+            const { data } = await axios.post('https://60d62397943aa60017768e77.mockapi.io/Order', {
+                items: cartItems,
             });
             setIsOrder(data.id);
             setIsOrderComplete(false);
@@ -156,7 +154,7 @@ function App() {
                 />
             </Routes>
             <Routes>
-                <Route path='/order' element={<Order order={isOrder} />} />
+                <Route path='/order' element={<Order order={isOrder} setOrders={setIsOrder} />} />
             </Routes>
         </div>
     );

@@ -1,9 +1,22 @@
 import PropTypes from 'prop-types';
-// import axios from 'axios';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
-function Order({ order }) {
-    console.log(order);
+function Order({ order, setOrders }) {
+    useEffect(() => {
+        (async () => {
+            try {
+                const { data } = await axios.get('https://60d62397943aa60017768e77.mockapi.io/Order');
+                setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
+            } catch (error) {
+                console.log(order);
+
+                alert('Ошибка при запросе заказов');
+                console.error(error);
+            }
+        })();
+    }, []);
     return (
         <>
             {order.length > 0 ? (
@@ -19,16 +32,13 @@ function Order({ order }) {
                             <div className='favorite--item' key={index}>
                                 <img className='favorite--item__img' src='src/img/heart-shop_3.svg' alt='' />
                                 <div>
-                                    {obj.items.map((item, itemIndex) => (
-                                        <div key={itemIndex}>
-                                            <img src={item.imgUrl} alt='sneaker' />
-                                            <h1>{item.id.name}</h1>
-                                            <div>
-                                                <b>Цена:</b>
-                                                <h3>{item.price} грн</h3>
-                                            </div>
-                                        </div>
-                                    ))}
+                                    <img src={obj.imgUrl} alt='sneaker' />
+                                </div>
+                                <h1>{obj.name}</h1>
+
+                                <div>
+                                    <b>Цена:</b>
+                                    <h3>{obj.price} грн</h3>
                                 </div>
                             </div>
                         ))}
@@ -53,6 +63,7 @@ function Order({ order }) {
 
 Order.propTypes = {
     order: PropTypes.array.isRequired,
+    setOrders: PropTypes.func.isRequired,
 };
 
 export default Order;
