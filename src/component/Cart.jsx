@@ -1,6 +1,16 @@
 import PropTypes from 'prop-types';
 
-function Cart({ onCartHidden, onCartEmpty, onRemove, items = [], priceCart }) {
+function Cart({
+    onCartHidden,
+    onCartEmpty,
+    onRemove,
+    items = [],
+    priceCart,
+    headerCart,
+    textCart,
+    imgUrlCart,
+    buyCartSneakers,
+}) {
     let priceTax = (priceCart / 100) * 5;
     return (
         <div className='cart'>
@@ -13,13 +23,13 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [], priceCart }) {
 
                     <div className={onCartEmpty ? 'Cart__empty' : 'Cart__empty--none'}>
                         <div>
-                            <img src='src/img/cart.svg' alt='cart' />
+                            <img src={`${imgUrlCart}`} alt='cart' />
                         </div>
                         <div>
-                            <h1>Кошик порожній</h1>
+                            <h1>{headerCart}</h1>
                         </div>
                         <div>
-                            <p>Додайте хоча б одну пару кросівок, щоб зробити замовлення.</p>
+                            <p>{textCart}</p>
                         </div>
                         <div>
                             <button onClick={onCartHidden}>
@@ -59,7 +69,7 @@ function Cart({ onCartHidden, onCartEmpty, onRemove, items = [], priceCart }) {
                     <h1>Налог 5%:</h1>
                     <b>{priceTax.toFixed(2)}грн</b>
                 </div>
-                <button>
+                <button onClick={buyCartSneakers}>
                     Оформити замовлення <img src='src/img/pointer_button.svg' alt='pointer' />
                 </button>
             </div>
@@ -75,4 +85,8 @@ Cart.propTypes = {
     onCartEmpty: PropTypes.bool.isRequired,
     onCartHidden: PropTypes.func.isRequired,
     priceCart: PropTypes.number.isRequired,
+    headerCart: PropTypes.string.isRequired,
+    textCart: PropTypes.string.isRequired,
+    imgUrlCart: PropTypes.string.isRequired,
+    buyCartSneakers: PropTypes.func.isRequired,
 };

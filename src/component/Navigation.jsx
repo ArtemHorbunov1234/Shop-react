@@ -38,8 +38,9 @@ function Navigation({ cartChange, onHeard, onFavorite, onCart, priceCart }) {
                             alt='heart'
                         />
                     </Link>
-
-                    <img src='src/img/account-shop.svg' alt='account' />
+                    <Link to='/order'>
+                        <img src='src/img/account-shop.svg' alt='account' />
+                    </Link>
                 </li>
             </ul>
         </nav>

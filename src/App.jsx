@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Favorite from './pages/Favorite';
+import Order from './pages/Order';
 
 function App() {
     const [visible, setVisible] = useState(false);
@@ -14,6 +15,8 @@ function App() {
     const [searchItems, setSearchItems] = useState([]);
     const [favorite, setFavorite] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isOrder, setIsOrder] = useState([]);
+    const [isOrderComplete, setIsOrderComplete] = useState(true);
 
     const onChangeSearchInput = (event) => {
         setSearchItems(event.target.value);
@@ -24,10 +27,13 @@ function App() {
             const cartResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart');
             const favoriteResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Favorite');
             const itemsResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Items');
+            const orderResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Order');
             setIsLoading(false);
+
             setCartItems(cartResponse.data);
             setFavorite(favoriteResponse.data);
             setItems(itemsResponse.data);
+            setIsOrder(orderResponse.data);
         }
         fetchDate();
     }, []);
@@ -77,6 +83,26 @@ function App() {
         setFavorite((prev) => prev.filter((item) => item.id !== id));
     };
 
+    const onClickBuyCart = async () => {
+        try {
+            setIsLoading(true);
+            const { data } = await axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Order', {
+                cartItems,
+            });
+            setIsOrder(data.id);
+            setIsOrderComplete(false);
+            setCartItems([]);
+
+            for (let i = 0; i < cartItems.length; i++) {
+                const item = cartItems[i];
+                await axios.delete('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/' + item.id);
+            }
+        } catch (error) {
+            alert('Ошибка при создании заказа :(');
+        }
+        setIsLoading(false);
+    };
+
     return (
         <div className='content'>
             <Navigation
@@ -93,15 +119,17 @@ function App() {
                     items={cartItems}
                     onRemove={onRemoveItem}
                     priceCart={cartItems.reduce((sum, obj) => obj.price + sum, 0)}
+                    headerCart={isOrderComplete ? 'Кошик порожній' : 'Замовлення оформлене!'}
+                    textCart={
+                        isOrderComplete
+                            ? 'Додайте хоча б одну пару кросівок, щоб зробити замовлення.'
+                            : `Ваше замовлення #18 скоро буде передано кур'єрській доставці`
+                    }
+                    imgUrlCart={isOrderComplete ? 'src/img/cart.svg' : 'src/img/buySneakers.svg'}
+                    buyCartSneakers={() => onClickBuyCart()}
                 />
             ) : null}
 
-            <Routes>
-                <Route
-                    path='/favorite'
-                    element={<Favorite favorite={favorite} onRemoveFavorite={onRemoveFavorite} />}
-                />
-            </Routes>
             <Routes>
                 <Route
                     path='/'
@@ -120,6 +148,15 @@ function App() {
                         />
                     }
                 />
+            </Routes>
+            <Routes>
+                <Route
+                    path='/favorite'
+                    element={<Favorite favorite={favorite} onRemoveFavorite={onRemoveFavorite} />}
+                />
+            </Routes>
+            <Routes>
+                <Route path='/order' element={<Order order={isOrder} />} />
             </Routes>
         </div>
     );

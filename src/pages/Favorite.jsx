@@ -7,7 +7,9 @@ function Favorite({ favorite, onRemoveFavorite }) {
             {favorite.length > 0 ? (
                 <div>
                     <div className='favorite'>
-                        <img src='src/img/exit_favorite.svg' alt='exit' />
+                        <Link to='/'>
+                            <img src='src/img/exit_favorite.svg' alt='exit' />
+                        </Link>
                         <h1>Мої закладки</h1>
                     </div>
                     <div className='favorite__item'>
