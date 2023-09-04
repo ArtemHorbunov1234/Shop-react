@@ -1,7 +1,7 @@
 .cart {
-    position: absolute;
+    position: fixed;
     right: 0%;
-    background-color: #ffffff;
+    background-color: #f0f0f0;
     height: 100%;
     width: 27%;
     top: 0%;
@@ -10,8 +10,11 @@
     flex-direction: column;
     justify-content: space-between;
     z-index: 2;
+    border: 1px solid gray;
 
     > .cart__buy {
+        flex-grow: 1; /* Занимает оставшуюся высоту, чтобы контент скролился */
+        overflow-y: auto;
         > div {
             display: flex;
             flex-direction: column;
@@ -39,15 +42,15 @@
                 border-radius: 10px;
                 border: 1px solid rgba(128, 128, 128, 0.315);
                 width: 371px;
-
-                > img {
+                .cart__img {
+                    border-top-left-radius: 9px;
+                    border-bottom-left-radius: 9px;
+                }
+                > .cart__img--delete {
                     cursor: pointer;
                 }
 
                 > div {
-                    > img {
-                        border-radius: 10px;
-                    }
                     > h1 {
                         font-size: 0.8rem;
                         width: 150px;
@@ -85,6 +88,7 @@
             margin-inline: auto;
             font-size: 1rem;
             font-weight: 700;
+            margin-bottom: 2rem;
             > img {
                 padding-left: 35px;
             }

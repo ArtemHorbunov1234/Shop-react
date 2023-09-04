@@ -41,15 +41,16 @@ function Cart({
                     </div>
                     {items.map((obj) => (
                         <div className={styles['cart__buy--item']} key={obj.id}>
-                            <div>
-                                <img src={obj.imgUrl} alt='sneaker' />
-                            </div>
+                            <>
+                                <img className={styles.cart__img} src={obj.imgUrl} alt='sneaker' />
+                            </>
 
                             <div>
                                 <h1>{obj.name}</h1>
                                 <b>{obj.price} грн</b>
                             </div>
                             <img
+                                className={styles['cart__img--delete']}
                                 onClick={() => {
                                     onRemove(obj.id);
                                 }}
