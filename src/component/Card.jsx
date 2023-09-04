@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
+import styles from './card.module.scss';
 
 function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, addedLike = true, loading = false }) {
     const [changeHeart, setChangeHeart] = useState(addedLike);
@@ -18,7 +19,7 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, ad
     return (
         <div>
             {loading ? (
-                <div className='card_skeleton'>
+                <div className={styles.card_skeleton}>
                     <ContentLoader
                         speed={2}
                         width={155}
@@ -35,10 +36,10 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, ad
                     </ContentLoader>
                 </div>
             ) : (
-                <div className='card'>
+                <div className={styles.card}>
                     <div>
                         <img
-                            className='card__favorite--img'
+                            className={styles['card__favorite--img']}
                             src={addedLike ? 'src/img/heart-shop_3.svg' : 'src/img/heart-shop_2.svg'}
                             onClick={onClickFavorite}
                             alt='heart'
@@ -46,11 +47,11 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, ad
                     </div>
 
                     <div>
-                        <img className='card__sneaker--img' src={imgUrl} alt='sneaker' />
+                        <img className={styles['card__sneaker--img']} src={imgUrl} alt='sneaker' />
                         <div>
                             <h1>{name}</h1>
                         </div>
-                        <div className='section_button'>
+                        <div className={styles.card_button}>
                             <div>
                                 <h1>Ціна:</h1>
                                 <b>{price} грн</b>

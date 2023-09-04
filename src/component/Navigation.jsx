@@ -8,7 +8,7 @@ function Navigation({ cartChange, onHeard, onFavorite, onCart, priceCart }) {
             <Link to='/'>
                 <ul className='headerLeft'>
                     <li>
-                        <img src='src/img/logo-shop.svg' alt='' />
+                        <img src='src/img/logo--new.png' width={45} height={45} alt='' />
                     </li>
                     <li>
                         <h1 className='headerLeft__text--logo'>REACT SNEAKERS</h1>

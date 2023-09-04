@@ -1,5 +1,6 @@
 import Card from '../component/Card';
 import PropTypes from 'prop-types';
+import styles from './home.module.scss';
 
 function Home({
     items,
@@ -39,7 +40,7 @@ function Home({
     };
     return (
         <div>
-            <main>
+            <main className={styles.searchItems}>
                 <h1> {searchItems.length > 0 ? `Пошук за запитом: ${searchItems}` : 'Усі кросівки'}</h1>
                 <div>
                     <input onChange={onChangeSearchInput} value={searchItems} type='text' placeholder='ПОИСК' />
@@ -56,7 +57,7 @@ function Home({
 Home.propTypes = {
     items: PropTypes.array.isRequired,
     searchItems: PropTypes.array.isRequired,
-    onChangeSearchInput: PropTypes.func.isRequired, // ожидаем функцию-обработчик
+    onChangeSearchInput: PropTypes.func.isRequired,
     onAddToFavorite: PropTypes.func.isRequired,
     onAddToCart: PropTypes.func.isRequired,
     cartItems: PropTypes.array.isRequired,

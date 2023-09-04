@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import styles from './cart.module.scss';
 
 function Cart({
     onCartHidden,
@@ -13,15 +14,15 @@ function Cart({
 }) {
     let priceTax = (priceCart / 100) * 5;
     return (
-        <div className='cart'>
-            <div className='cart__buy'>
+        <div className={styles.cart}>
+            <div className={styles.cart__buy}>
                 <div>
-                    <div className='cart__header'>
+                    <div className={styles.cart__header}>
                         <h1>Кошик</h1>
                         <img onClick={onCartHidden} src='src/img/cart_x--letter.svg' alt='' />
                     </div>
 
-                    <div className={onCartEmpty ? 'Cart__empty' : 'Cart__empty--none'}>
+                    <div className={onCartEmpty ? styles.Cart__empty : styles['Cart__empty--none']}>
                         <div>
                             <img src={`${imgUrlCart}`} alt='cart' />
                         </div>
@@ -39,7 +40,7 @@ function Cart({
                         </div>
                     </div>
                     {items.map((obj) => (
-                        <div className='cart__buy--item' key={obj.id}>
+                        <div className={styles['cart__buy--item']} key={obj.id}>
                             <div>
                                 <img src={obj.imgUrl} alt='sneaker' />
                             </div>
@@ -60,7 +61,7 @@ function Cart({
                 </div>
             </div>
 
-            <div className={onCartEmpty ? 'Cart__empty--none' : 'cart__pay'}>
+            <div className={onCartEmpty ? styles['Cart__empty--none'] : styles.cart__pay}>
                 <div>
                     <h1>Разом:</h1>
                     <b>{priceCart}грн</b>

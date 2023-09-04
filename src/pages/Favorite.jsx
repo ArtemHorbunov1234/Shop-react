@@ -1,22 +1,23 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styles from './favorite.module.scss';
 
 function Favorite({ favorite, onRemoveFavorite }) {
     return (
         <>
             {favorite.length > 0 ? (
                 <div>
-                    <div className='favorite'>
+                    <div className={styles.favorite}>
                         <Link to='/'>
                             <img src='src/img/exit_favorite.svg' alt='exit' />
                         </Link>
                         <h1>Мої закладки</h1>
                     </div>
-                    <div className='favorite__item'>
+                    <div className={styles.favorite__item}>
                         {favorite.map((obj, index) => (
-                            <div className='favorite--item' key={index}>
+                            <div className={styles['favorite--item']} key={index}>
                                 <img
-                                    className='favorite--item__img'
+                                    className={styles['favorite--item__img']}
                                     onClick={() => onRemoveFavorite(obj.id)}
                                     src='src/img/heart-shop_3.svg'
                                     alt=''
@@ -35,7 +36,7 @@ function Favorite({ favorite, onRemoveFavorite }) {
                     </div>
                 </div>
             ) : (
-                <div className='favorite--item__dont'>
+                <div className={styles['favorite--item__dont']}>
                     <img src='src/img/smile_favorite.svg' alt='smile' />
                     <h1>Закладок немає :(</h1>
                     <p>Ви нічого не додавали в закладки</p>

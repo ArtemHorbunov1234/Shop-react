@@ -1,0 +1,24 @@
+.searchItems {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 23px 30px 23px;
+    > div {
+        border-radius: 10px;
+        border: 1px solid gray;
+        padding: 5px 5px 5px 8px;
+        display: flex;
+        > img {
+            cursor: pointer;
+        }
+        > input {
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+
+            &::placeholder {
+                text-align: center;
+            }
+        }
+    }
+}
