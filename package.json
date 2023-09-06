@@ -1,10 +1,10 @@
 {
     "name": "shop-react",
     "private": true,
+    "homepage": "https://artemhorbunov1234.github.io/Shop-react/",
+    "proxy": "https://64de62bb825d19d9bfb28c9d.mockapi.io/",
     "version": "0.0.0",
     "type": "module",
-    "homepage": "https://artemhorbunov1234.github.io/Shop-react",
-    "proxy": "https://64de62bb825d19d9bfb28c9d.mockapi.io/",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
