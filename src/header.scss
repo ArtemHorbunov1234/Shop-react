@@ -25,10 +25,10 @@ ul {
 }
 
 .navigation {
-    margin: 50px 23px 40px 23px;
+    margin: 49px 23px 30px 23px;
     display: flex;
     gap: 629px;
-    padding-top: 1rem;
+    padding-top: 2rem;
 }
 
 .headerLeft,
@@ -39,6 +39,9 @@ ul {
 }
 
 .headerRight {
+    > h1 {
+        cursor: pointer;
+    }
     > li {
         display: flex;
         gap: 15px;
@@ -46,6 +49,7 @@ ul {
         > div {
             > h1 {
                 width: 80px;
+                cursor: pointer;
             }
         }
 
@@ -53,6 +57,7 @@ ul {
             cursor: pointer;
             width: 25px;
             height: 25px;
+            margin-bottom: 5px;
         }
     }
 }
@@ -70,4 +75,12 @@ section {
     margin-inline: auto;
     gap: 30px;
     padding-bottom: 20px;
+}
+
+.many__cart {
+    position: absolute;
+    transform: translate(16px, -17px);
+    font-size: 17px;
+    font-weight: bold;
+    color: blue;
 }

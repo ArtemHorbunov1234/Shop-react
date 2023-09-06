@@ -37,7 +37,7 @@ function Order({ order }) {
                     </div>
                 </div>
             ) : (
-                <div className='favorite--item__dont'>
+                <div className={styles['order--item__dont']}>
                     <img src='src/img/smile_favorite.svg' alt='smile' />
                     <h1>У вас немає замовлень:(</h1>
                     <p>Ви нічого не придбали </p>

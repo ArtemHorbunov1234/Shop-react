@@ -18,6 +18,7 @@ function App() {
     const [isOrder, setIsOrder] = useState([]);
     const [isOrderComplete, setIsOrderComplete] = useState(true);
     const [isCustom, setIsCustom] = useState();
+    const [isManyCart, setIsManyCart] = useState(0);
 
     const onChangeSearchInput = (event) => {
         setSearchItems(event.target.value);
@@ -29,6 +30,7 @@ function App() {
             const favoriteResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Favorite');
             const itemsResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Items');
             const orderResponse = await axios.get('https://64de62bb825d19d9bfb28c9d.mockapi.io/Order');
+            setIsManyCart(cartResponse.data.length);
             setIsLoading(false);
             setIsOrder(orderResponse.data);
             setCartItems(cartResponse.data);
@@ -41,12 +43,14 @@ function App() {
     const onRemoveItem = (id) => {
         axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/${id}`);
         setCartItems((prev) => prev.filter((item) => item.id !== id));
+        setIsManyCart(Number(isManyCart - 1));
     };
-    const onAddToCart = (obj) => {
+    const onAddToCart = async (obj) => {
         const existingItem = cartItems.find((item) => Number(item.itemId) === Number(obj.id));
         if (existingItem !== undefined) {
             axios.delete(`https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart/${existingItem.id}`);
             setCartItems((prev) => prev.filter((item) => Number(item.itemId) !== Number(obj.id)));
+            setIsManyCart(Number(isManyCart - 1));
         } else {
             const cartObj = {
                 imgUrl: obj.imgUrl,
@@ -54,9 +58,14 @@ function App() {
                 name: obj.name,
                 itemId: obj.id,
             };
-            axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', cartObj).then((res) => {
-                setCartItems((prev) => [...prev, res.data]);
-            });
+            try {
+                axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Cart', cartObj).then((res) => {
+                    setCartItems((prev) => [...prev, res.data]);
+                    setIsManyCart(Number(isManyCart + 1));
+                });
+            } catch {
+                console.log('Error');
+            }
         }
     };
 
@@ -93,13 +102,13 @@ function App() {
             axios.post('https://64de62bb825d19d9bfb28c9d.mockapi.io/Order', data).then((response) => {
                 setIsOrder((res) => [...res, response.data]);
                 setIsCustom(() => response.data.id);
-                console.log(isCustom);
             });
         } catch (error) {
             console.error('Ошибка при создании заказа:', error);
         }
         setCartItems([]);
         setIsOrderComplete(false);
+        setIsManyCart(Number(0));
 
         for (let i = 0; i < cartItems.length; i++) {
             const item = cartItems[i];
@@ -114,8 +123,10 @@ function App() {
                 onHeard={favorite}
                 onCart={() => setVisible(!visible)}
                 priceCart={cartItems.reduce((sum, obj) => obj.price + sum, 0)}
+                manyCart={isManyCart}
             />
             <hr />
+
             {visible ? (
                 <Cart
                     onCartHidden={() => setVisible(!visible)}
@@ -131,6 +142,7 @@ function App() {
                     }
                     imgUrlCart={isOrderComplete ? 'src/img/cart.svg' : 'src/img/buySneakers.svg'}
                     buyCartSneakers={() => onClickBuyCart()}
+                    isManyActionCart={isManyCart}
                 />
             ) : null}
 

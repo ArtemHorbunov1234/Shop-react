@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
+import gifPrice from '../img/price.gif';
+import gifCart from '../img/cart-new.gif';
 
-function Navigation({ cartChange, onHeard, onFavorite, onCart, priceCart }) {
+function Navigation({ onHeard, onFavorite, onCart, priceCart, manyCart }) {
     return (
         <nav className='navigation'>
             <Link to='/'>
@@ -19,15 +21,20 @@ function Navigation({ cartChange, onHeard, onFavorite, onCart, priceCart }) {
 
             <ul className='headerRight'>
                 <li>
-                    <img
-                        src={cartChange.length > 0 ? 'src/img/cart_blue.svg' : 'src/img/cart-shop.svg'}
-                        onClick={onCart}
-                        alt=''
-                    />
+                    <img src={gifCart} onClick={onCart} alt='' />
                     <div>
-                        <h1>{priceCart}грн</h1>
+                        <h1 onClick={onCart}>
+                            {priceCart > 0 ? (
+                                `${priceCart}грн`
+                            ) : (
+                                <img src={gifPrice} width={30} height={30} alt='Cart' />
+                            )}
+                        </h1>
                     </div>
                 </li>
+                <h1 onClick={onCart} className='many__cart'>
+                    {manyCart}
+                </h1>
                 <li>
                     <Link to='/favorite'>
                         <img
@@ -51,8 +58,8 @@ Navigation.propTypes = {
     onCart: PropTypes.func.isRequired,
     onFavorite: PropTypes.func.isRequired,
     onHeard: PropTypes.array.isRequired,
-    cartChange: PropTypes.array.isRequired,
     priceCart: PropTypes.number.isRequired,
+    manyCart: PropTypes.number.isRequired,
 };
 
 export default Navigation;

@@ -11,8 +11,11 @@ function Cart({
     textCart,
     imgUrlCart,
     buyCartSneakers,
+    isManyActionCart,
 }) {
     let priceTax = (priceCart / 100) * 5;
+    let priceACtion = (priceCart / 100) * 80;
+    console.log(isManyActionCart);
     return (
         <div className={styles.cart}>
             <div className={styles.cart__buy}>
@@ -65,7 +68,14 @@ function Cart({
             <div className={onCartEmpty ? styles['Cart__empty--none'] : styles.cart__pay}>
                 <div>
                     <h1>Разом:</h1>
-                    <b>{priceCart}грн</b>
+                    {isManyActionCart >= 3 ? (
+                        <div>
+                            <b className={styles['cart__pay--action']}>{priceACtion.toFixed(2)}грн</b>
+                            <b className={styles['cart__pay--price']}>{priceCart.toFixed(2)}грн</b>
+                        </div>
+                    ) : (
+                        <b>{priceCart}грн</b>
+                    )}
                 </div>
                 <div>
                     <h1>Налог 5%:</h1>
@@ -91,4 +101,5 @@ Cart.propTypes = {
     textCart: PropTypes.string.isRequired,
     imgUrlCart: PropTypes.string.isRequired,
     buyCartSneakers: PropTypes.func.isRequired,
+    isManyActionCart: PropTypes.number.isRequired,
 };

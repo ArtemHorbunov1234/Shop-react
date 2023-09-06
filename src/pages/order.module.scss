@@ -33,3 +33,36 @@
         }
     }
 }
+
+.order--item__dont {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 500px;
+    width: fit-content;
+    margin-inline: auto;
+    align-items: center;
+    margin-top: 12rem;
+
+    > img {
+        width: fit-content;
+    }
+
+    > a {
+        > button {
+            cursor: pointer;
+            margin-top: 1rem;
+            padding: 18px 60px 18px 60px;
+            background-color: #9dd458;
+            border: none;
+            border-radius: 18px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            margin-inline: auto;
+            font-size: 1rem;
+            font-weight: 700;
+            gap: 1rem;
+        }
+    }
+}
