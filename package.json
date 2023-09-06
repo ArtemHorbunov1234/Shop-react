@@ -3,14 +3,14 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "homepage": "https://artemhorbunov1234.github.io/Shop-react/",
+    "homepage": "https://artemhorbunov1234.github.io/Shop-react",
     "proxy": "https://64de62bb825d19d9bfb28c9d.mockapi.io/",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
-        "predeploy": "pnpm run build",
+        "predeploy": "npm run build",
         "deploy": "gh-pages -d build"
     },
     "dependencies": {
