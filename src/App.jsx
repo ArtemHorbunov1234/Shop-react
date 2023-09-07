@@ -151,6 +151,7 @@ function App() {
             <Routes>
                 <Route
                     path='Shop-react'
+                    exact
                     element={
                         <Home
                             items={items}
@@ -168,10 +169,14 @@ function App() {
                 />
             </Routes>
             <Routes>
-                <Route path='favorite' element={<Favorite favorite={favorite} onRemoveFavorite={onRemoveFavorite} />} />
+                <Route
+                    path='favorite'
+                    exact
+                    element={<Favorite favorite={favorite} onRemoveFavorite={onRemoveFavorite} />}
+                />
             </Routes>
             <Routes>
-                <Route path='order' element={<Order order={isOrder} />} />
+                <Route path='order' exact element={<Order order={isOrder} />} />
             </Routes>
         </div>
     );
