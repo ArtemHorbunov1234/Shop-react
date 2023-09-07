@@ -23,6 +23,9 @@ function App() {
     const onChangeSearchInput = (event) => {
         setSearchItems(event.target.value);
     };
+    useEffect(() => {
+        document.title = 'Sneakers';
+    }, []);
 
     useEffect(() => {
         async function fetchDate() {
@@ -94,7 +97,6 @@ function App() {
 
     const data = {
         cartItems: cartItems,
-        // Другие данные, которые вы хотите отправить на сервер, могут быть добавлены здесь
     };
 
     const onClickBuyCart = async () => {
@@ -140,7 +142,7 @@ function App() {
                             ? 'Додайте хоча б одну пару кросівок, щоб зробити замовлення.'
                             : `Ваше замовлення #${isCustom} скоро буде передано кур'єрській доставці`
                     }
-                    imgUrlCart={isOrderComplete ? 'src/img/cart.svg' : 'src/img/buySneakers.svg'}
+                    imgUrlCart={isOrderComplete ? 'img/cart.svg' : 'img/buySneakers.svg'}
                     buyCartSneakers={() => onClickBuyCart()}
                     isManyActionCart={isManyCart}
                 />
@@ -148,7 +150,7 @@ function App() {
 
             <Routes>
                 <Route
-                    path='/'
+                    path='/Shop-react'
                     element={
                         <Home
                             items={items}

@@ -40,7 +40,7 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, ad
                     <div>
                         <img
                             className={styles['card__favorite--img']}
-                            src={addedLike ? 'src/img/heart-shop_3.svg' : 'src/img/heart-shop_2.svg'}
+                            src={addedLike ? 'img/heart-shop_3.svg' : 'img/heart-shop_2.svg'}
                             onClick={onClickFavorite}
                             alt='heart'
                         />
@@ -57,11 +57,7 @@ function Card({ id, imgUrl, name, price, onBuyCart, onFavorite, added = true, ad
                                 <b>{price} грн</b>
                             </div>
                             <div>
-                                <img
-                                    src={added ? 'src/img/tick.svg' : 'src/img/plus.svg'}
-                                    alt='plus'
-                                    onClick={onClickPlus}
-                                />
+                                <img src={added ? 'img/tick.svg' : 'img/plus.svg'} alt='plus' onClick={onClickPlus} />
                             </div>
                         </div>
                     </div>

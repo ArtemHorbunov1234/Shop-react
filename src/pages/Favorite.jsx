@@ -8,8 +8,8 @@ function Favorite({ favorite, onRemoveFavorite }) {
             {favorite.length > 0 ? (
                 <div>
                     <div className={styles.favorite}>
-                        <Link to='/'>
-                            <img src='src/img/exit_favorite.svg' alt='exit' />
+                        <Link to='/Shop-react'>
+                            <img src='img/exit_favorite.svg' alt='exit' />
                         </Link>
                         <h1>Мої закладки</h1>
                     </div>
@@ -19,7 +19,7 @@ function Favorite({ favorite, onRemoveFavorite }) {
                                 <img
                                     className={styles['favorite--item__img']}
                                     onClick={() => onRemoveFavorite(obj.id)}
-                                    src='src/img/heart-shop_3.svg'
+                                    src='img/heart-shop_3.svg'
                                     alt=''
                                 />
                                 <div>
@@ -37,12 +37,12 @@ function Favorite({ favorite, onRemoveFavorite }) {
                 </div>
             ) : (
                 <div className={styles['favorite--item__dont']}>
-                    <img src='src/img/smile_favorite.svg' alt='smile' />
+                    <img src='img/smile_favorite.svg' alt='smile' />
                     <h1>Закладок немає :(</h1>
                     <p>Ви нічого не додавали в закладки</p>
-                    <Link to='/'>
+                    <Link to='/Shop-react'>
                         <button>
-                            <img src='src/img/cursor_left-button.svg' alt='' />
+                            <img src='img/cursor_left-button.svg' alt='' />
                             Повернутися назад
                         </button>
                     </Link>

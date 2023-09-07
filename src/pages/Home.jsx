@@ -41,14 +41,14 @@ function Home({
     return (
         <div>
             <div className={styles.home__action}>
-                <img src='src/img/action-sneakers.png' width={1120} height={136} alt='' />
+                <img src='img/action-sneakers.png' width={1120} height={136} alt='' />
             </div>
             <main className={styles.searchItems}>
                 <h1> {searchItems.length > 0 ? `Пошук за запитом: ${searchItems}` : 'Усі кросівки'}</h1>
                 <div>
                     <input onChange={onChangeSearchInput} value={searchItems} type='text' placeholder='ПОИСК' />
                     {searchItems.length > 0 ? (
-                        <img src='src/img/input_x--letter.svg' onClick={() => setSearchItems('')} alt='' />
+                        <img src='img/input_x--letter.svg' onClick={() => setSearchItems('')} alt='' />
                     ) : null}
                 </div>
             </main>

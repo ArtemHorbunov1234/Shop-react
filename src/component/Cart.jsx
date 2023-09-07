@@ -22,7 +22,7 @@ function Cart({
                 <div>
                     <div className={styles.cart__header}>
                         <h1>Кошик</h1>
-                        <img onClick={onCartHidden} src='src/img/cart_x--letter.svg' alt='' />
+                        <img onClick={onCartHidden} src='img/cart_x--letter.svg' alt='' />
                     </div>
 
                     <div className={onCartEmpty ? styles.Cart__empty : styles['Cart__empty--none']}>
@@ -37,7 +37,7 @@ function Cart({
                         </div>
                         <div>
                             <button onClick={onCartHidden}>
-                                <img src='src/img/cursor_left-button.svg' alt='' />
+                                <img src='img/cursor_left-button.svg' alt='' />
                                 Повернутися назад
                             </button>
                         </div>
@@ -57,7 +57,7 @@ function Cart({
                                 onClick={() => {
                                     onRemove(obj.id);
                                 }}
-                                src='src/img/delete-icon.svg'
+                                src='img/delete-icon.svg'
                                 alt='delete-icon'
                             />
                         </div>
@@ -82,7 +82,7 @@ function Cart({
                     <b>{priceTax.toFixed(2)}грн</b>
                 </div>
                 <button onClick={buyCartSneakers}>
-                    Оформити замовлення <img src='src/img/pointer_button.svg' alt='pointer' />
+                    Оформити замовлення <img src='img/pointer_button.svg' alt='pointer' />
                 </button>
             </div>
         </div>
