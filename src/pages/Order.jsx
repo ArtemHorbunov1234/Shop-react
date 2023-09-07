@@ -9,7 +9,7 @@ function Order({ order }) {
             {order.length > 0 ? (
                 <div>
                     <div className={styles.order_header}>
-                        <Link to='/Shop-react'>
+                        <Link to='Shop-react'>
                             <img src='img/exit_favorite.svg' alt='exit' />
                         </Link>
                         <h1>Мої покупки</h1>
@@ -41,7 +41,7 @@ function Order({ order }) {
                     <img src='img/smile_favorite.svg' alt='smile' />
                     <h1>У вас немає замовлень:(</h1>
                     <p>Ви нічого не придбали </p>
-                    <Link to='/Shop-react'>
+                    <Link to='Shop-react'>
                         <button>
                             <img src='img/cursor_left-button.svg' alt='' />
                             Повернутися назад

@@ -150,7 +150,7 @@ function App() {
 
             <Routes>
                 <Route
-                    path='/Shop-react'
+                    path='Shop-react'
                     element={
                         <Home
                             items={items}
@@ -168,13 +168,10 @@ function App() {
                 />
             </Routes>
             <Routes>
-                <Route
-                    path='/favorite'
-                    element={<Favorite favorite={favorite} onRemoveFavorite={onRemoveFavorite} />}
-                />
+                <Route path='favorite' element={<Favorite favorite={favorite} onRemoveFavorite={onRemoveFavorite} />} />
             </Routes>
             <Routes>
-                <Route path='/order' element={<Order order={isOrder} />} />
+                <Route path='order' element={<Order order={isOrder} />} />
             </Routes>
         </div>
     );

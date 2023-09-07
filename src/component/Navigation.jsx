@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Navigation({ onHeard, onCart, priceCart, manyCart }) {
     return (
         <nav className='navigation'>
-            <Link to='/Shop-react'>
+            <Link to='Shop-react'>
                 <ul className='headerLeft'>
                     <li>
                         <img src='img/logo--new.png' width={45} height={45} alt='' />
@@ -34,7 +34,7 @@ function Navigation({ onHeard, onCart, priceCart, manyCart }) {
                     {manyCart}
                 </h1>
                 <li>
-                    <Link to='/favorite'>
+                    <Link to='favorite'>
                         <img
                             src={onHeard.length > 0 ? 'img/favorite_navigation_1.svg' : 'img/heart-shop.svg'}
                             width={25}
@@ -42,7 +42,7 @@ function Navigation({ onHeard, onCart, priceCart, manyCart }) {
                             alt='heart'
                         />
                     </Link>
-                    <Link to='/order'>
+                    <Link to='order'>
                         <img src='img/account-shop.svg' alt='account' />
                     </Link>
                 </li>
