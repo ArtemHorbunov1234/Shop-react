@@ -151,7 +151,7 @@ function App() {
             <Routes>
                 <Route
                     exact
-                    path='/Shop-react'
+                    path='/'
                     element={
                         <Home
                             items={items}
