@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Navigation({ onHeard, onCart, priceCart, manyCart }) {
     return (
         <nav className='navigation'>
-            <Link to='/Shop-react'>
+            <Link to=''>
                 <ul className='headerLeft'>
                     <li>
                         <img src='img/logo--new.png' width={45} height={45} alt='' />

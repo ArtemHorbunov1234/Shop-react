@@ -8,7 +8,7 @@ function Favorite({ favorite, onRemoveFavorite }) {
             {favorite.length > 0 ? (
                 <div>
                     <div className={styles.favorite}>
-                        <Link to='/Shop-react'>
+                        <Link to=''>
                             <img src='img/exit_favorite.svg' alt='exit' />
                         </Link>
                         <h1>Мої закладки</h1>
@@ -40,7 +40,7 @@ function Favorite({ favorite, onRemoveFavorite }) {
                     <img src='img/smile_favorite.svg' alt='smile' />
                     <h1>Закладок немає :(</h1>
                     <p>Ви нічого не додавали в закладки</p>
-                    <Link to='/Shop-react'>
+                    <Link to=''>
                         <button>
                             <img src='img/cursor_left-button.svg' alt='' />
                             Повернутися назад
