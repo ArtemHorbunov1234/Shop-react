@@ -9,7 +9,7 @@ function Order({ order }) {
             {order.length > 0 ? (
                 <div>
                     <div className={styles.order_header}>
-                        <Link to=''>
+                        <Link to='/'>
                             <img src='img/exit_favorite.svg' alt='exit' />
                         </Link>
                         <h1>Мої покупки</h1>

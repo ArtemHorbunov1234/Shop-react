@@ -8,7 +8,7 @@ function Favorite({ favorite, onRemoveFavorite }) {
             {favorite.length > 0 ? (
                 <div>
                     <div className={styles.favorite}>
-                        <Link to=''>
+                        <Link to='/'>
                             <img src='img/exit_favorite.svg' alt='exit' />
                         </Link>
                         <h1>Мої закладки</h1>
