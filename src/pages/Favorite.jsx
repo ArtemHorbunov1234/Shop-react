@@ -40,7 +40,7 @@ function Favorite({ favorite, onRemoveFavorite }) {
                     <img src='img/smile_favorite.svg' alt='smile' />
                     <h1>Закладок немає :(</h1>
                     <p>Ви нічого не додавали в закладки</p>
-                    <Link to=''>
+                    <Link to='/'>
                         <button>
                             <img src='img/cursor_left-button.svg' alt='' />
                             Повернутися назад
